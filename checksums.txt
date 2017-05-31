@@ -1,0 +1,52 @@
+### created on 5.31.2017 ### 
+
+### md5sums ###
+
+d41d8cd98f00b204e9800998ecf8427e  ./checksums.txt
+84dcc94da3adb52b53ae4fa38fe49e5d  ./LICENSE
+edefa853b5518c2cb21141b17f234ae2  ./litebook-desktop-icons.info
+f9d2120637942be99ae4857d188b4aa5  ./litebook-desktop-icons-start.sh
+4572223c1772cdb5983d425326ffcc6b  ./litebook-file-manager-fixes_1.0-1_all.deb
+0a585d2a2f147f0209662f0e6f5313e9  ./litebook-file-manager-fixes.service
+e9b23f29c3fb51262cb8f57dc84aa1fd  ./litebook-file-manager-fixes.sh
+9814e03e7dbe965ba50868d714d3b50d  ./litebook-file-manager-setup.sh
+d4fa474c92b9fef738efcd9abc4084ea  ./README.md
+
+
+### sha1sums ###
+
+5254faa29f463db5a0bbfd13369a9e9da9a58228  ./checksums.txt
+12d81f50767d4e09aa7877da077ad9d1b915d75b  ./LICENSE
+c5bb95437951f78fc00e9317d5c5299890938731  ./litebook-desktop-icons.info
+f359ee85bc07a7022e9c34ff56834d0c78fbf355  ./litebook-desktop-icons-start.sh
+e6aa10eeae61be4ab08177dd668a483dfe5d3e8c  ./litebook-file-manager-fixes_1.0-1_all.deb
+6b00fc879202e3103f731ec7ccc5d4a8998df5dd  ./litebook-file-manager-fixes.service
+033c17e2404073ff4cb4975758efbf6672db36ef  ./litebook-file-manager-fixes.sh
+9fb8f684c3dca86c668139c70f4b9a0d382b263a  ./litebook-file-manager-setup.sh
+b950bcd7b931f545ba7595054e57a1e7db7e08cb  ./README.md
+
+
+### sha256sums ###
+
+1dd7c3f7f8336daa1ec16b7bff0824eb5009d6f765d66d15496c3adb5193f181  ./checksums.txt
+589ed823e9a84c56feb95ac58e7cf384626b9cbf4fda2a907bc36e103de1bad2  ./LICENSE
+2b12d8c90131fc1d716419de8aba88bbc13dcbb3413e0d2ce9a1841e4080cb9e  ./litebook-desktop-icons.info
+d2cbd9ff3848b5f92419f0c034c16547139b416c5d4f2e0c2449b018a143cb33  ./litebook-desktop-icons-start.sh
+13ddedb1bcf64483e3342ebc3fdce6f0e37bb3c386d9f9a3cb4ca2ec92b5e8d2  ./litebook-file-manager-fixes_1.0-1_all.deb
+18fd316b82241dbd721cf274852ac620a22bcb78cbeec4133745abe1d105d5b3  ./litebook-file-manager-fixes.service
+dc425378ffa5aa50f6f6901d9c92fd9b02e1a81bffc57d9eb895b0b11690a034  ./litebook-file-manager-fixes.sh
+5f8b840791ea7581f2ec0f3c758ec431607014b542d133067c22d716aa052fe1  ./litebook-file-manager-setup.sh
+03305a1847382503126c8abf58daef9994087b7b28cf091a3992fa9384a80528  ./README.md
+
+
+### sha512sums ###
+
+6d2a12c5b0f290d9991945baedcf3cc0e70d2d9985dbaa5d1add87d99b54ec73942e0b168829215c375abd236dc1aabaae874b715b891445577f3aa56cbce5c9  ./checksums.txt
+552aec8d120c9d931769f6a6b794716fce978d0055715de21746dc0f064f4a0f72b6be42d4828b98a56715b23fa427c1f66fd20aca0ef1751cc384c420db1605  ./LICENSE
+303d8aaedeed8de4cb52670e7cd28f1fa9aa7ed321c5c77dd7584fc9d5ed2ea2058bb9cd3120c5acc1166007bb90f5a783469e1fec917fdf475b621561cbe50c  ./litebook-desktop-icons.info
+0b2e07bf9cf54e1040f1e4b6b2adb34e5a9c2161bf28c41677cc9598dd47d9114168c000c7b55a52cc31dce39c89e5791f627a620a32349d28efba53b4fea94c  ./litebook-desktop-icons-start.sh
+9e0734241d6caec5e756778852530c51bc2a2a2574ea65fa9874a1903570b572723a6ef21faeb2b4f937308bb1ec0f90d67188485307e99235fbe6f0f8253f80  ./litebook-file-manager-fixes_1.0-1_all.deb
+238ae8b83fa4e749694c728788d34472ed49628c2a7591f77580ba28f962fa5a734febcd92c17becf539ac1597f61a775f415b3b4f9f4bb5958d994763d26a29  ./litebook-file-manager-fixes.service
+98e54a2de9f28109756a3eef2cc8fb3e14bd505b4a53edb487c171339a5433189af5ed85908deb986c88bfe1f671db53ddf73adaa799445fabd5da7328631ab1  ./litebook-file-manager-fixes.sh
+ba47dedb3bea6881687a50196cc30c044df18a95bcc3b7e3dede0f23f2ca1727f1be563a69aa2db6e1ab7e0a9ba1676632b787e11adb4912e4ac9451fefd328b  ./litebook-file-manager-setup.sh
+90b74936b83979752cb74b2ed24c3f8655fb952666ac5103102dd9d3f4060623d0bfbf3439096ea20cd3c1e86db786f19173c11a233943033c052a2915e02aea  ./README.md
