@@ -11,16 +11,17 @@ set -o nounset      # exits if unset vars are present
 
 PATH=/usr/local/bin:/usr/bin:/bin:/sbin:/usr/sbin:/usr/local/sbin
 
+cur_user="$(who | grep ":0" | cut -f 1 -d ' ' | uniq)"
+
 # needed for this external script to call the current display
 DISPLAY=:0
 export DISPLAY
-XAUTHORITY=/home/${cur_user}/.Xauthority
+XAUTHORITY=/home/"${cur_user}"/.Xauthority
 export XAUTHORITY
 
-cur_user="$(who | grep ":0" | cut -f 1 -d ' ' | uniq)"
-
 # install needed packages
-apt update && apt install -y --no-install-recommends nautilus dconf-tools pantheon-files
+if [[ ! -x dconf-tools ]] ; then apt update && apt install -y --no-install-recommends nautilus dconf-tools pantheon-files
+fi
 
 # set default desktop icons
 dbus-launch --sh-syntax gsettings set org.gnome.nautilus.desktop home-icon-visible true 
