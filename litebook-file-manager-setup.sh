@@ -23,6 +23,19 @@ export XAUTHORITY
 if [[ ! -x dconf-tools ]] ; then apt update && apt install -y --no-install-recommends nautilus dconf-tools pantheon-files
 fi
 
+# create all needed directories
+if [[ ! -d /home/"${cur_user}"/Desktop ]] ; then
+	sudo -u "${cur_user}" -l mkdir /home/"${cur_user}"/Desktop
+fi
+
+if [[ ! -d /home/"${cur_user}"/.local/share/applications ]] ; then
+	sudo -u "${cur_user}" -l mkdir /home/"${cur_user}"/.local/share/applications
+fi
+
+if [[ ! -d /home/"${cur_user}"/.config/autostart ]] ; then
+/home/"${cur_user}"/.config/autostart
+fi
+
 # set default desktop icons
 dbus-launch --sh-syntax gsettings set org.gnome.nautilus.desktop home-icon-visible true 
 dbus-launch --sh-syntax gsettings set org.gnome.nautilus.desktop trash-icon-visible true 
@@ -31,8 +44,7 @@ dbus-launch --sh-syntax gsettings set org.gnome.nautilus.desktop volumes-visible
 # set pantheon to monitor nautilus
 dbus-launch --sh-syntax gsettings set org.pantheon.desktop.cerbere monitored-processes "['wingpanel', 'plank', 'slingshot-launcher --silent', 'nautilus -n']" 
 
-# create desktop directory in ~ and set it as such with xdg
-sudo -u "${cur_user}" -l mkdir /home/"${cur_user}"/Desktop
+# define the desktop directory in with xdg
 su - "${cur_user}" -c "echo "XDG_DESKTOP_DIR=\"/home/"${cur_user}"/Desktop\"" >> \
 /home/"${cur_user}"/.config/user-dirs.dirs"
 
