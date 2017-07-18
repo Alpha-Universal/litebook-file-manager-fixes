@@ -14,10 +14,10 @@ PATH=/usr/local/bin:/usr/bin:/bin:/sbin:/usr/sbin:/usr/local/sbin
 # needed for this external script to call the current display
 DISPLAY=:0
 export DISPLAY
-XAUTHORITY=/home/$(id -nu 1000)/.Xauthority
+XAUTHORITY=/home/${cur_user}/.Xauthority
 export XAUTHORITY
 
-main_user="$(id -nu 1000)"
+cur_user="$(who | grep ":0" | cut -f 1 -d ' ' | uniq)"
 
 # install needed packages
 apt update && apt install -y --no-install-recommends nautilus dconf-tools pantheon-files
@@ -31,18 +31,18 @@ dbus-launch --sh-syntax gsettings set org.gnome.nautilus.desktop volumes-visible
 dbus-launch --sh-syntax gsettings set org.pantheon.desktop.cerbere monitored-processes "['wingpanel', 'plank', 'slingshot-launcher --silent', 'nautilus -n']" 
 
 # create desktop directory in ~ and set it as such with xdg
-sudo -u "${main_user}" -l mkdir /home/"${main_user}"/Desktop
-su - "${main_user}" -c "echo "XDG_DESKTOP_DIR=\"/home/"${main_user}"/Desktop\"" >> \
-/home/"${main_user}"/.config/user-dirs.dirs"
+sudo -u "${cur_user}" -l mkdir /home/"${cur_user}"/Desktop
+su - "${cur_user}" -c "echo "XDG_DESKTOP_DIR=\"/home/"${cur_user}"/Desktop\"" >> \
+/home/"${cur_user}"/.config/user-dirs.dirs"
 
 # ensure that pantheon remains the default file manager, and use the yes
 # binary to handle the interactive prompt
-yes | sudo -u "${main_user}" -l xdg-mime default pantheon.desktop inode/directory application/x-gnome-saved-search
+yes | sudo -u "${cur_user}" -l xdg-mime default pantheon.desktop inode/directory application/x-gnome-saved-search
 
 # hide nautilus from the start menu
-cp /usr/share/applications/nautilus.desktop /home/"${main_user}"/.local/share/applications
-chown "${main_user}":"${main_user}" /home/"${main_user}"/.local/share/applications/nautilus.desktop
-cd /home/$(id -nu 1000)/.local/share/applications/ ; sed -i '/\[Desktop Entry\]/a NoDisplay=true' ./nautilus.desktop 
+cp /usr/share/applications/nautilus.desktop /home/"${cur_user}"/.local/share/applications
+chown "${cur_user}":"${cur_user}" /home/"${cur_user}"/.local/share/applications/nautilus.desktop
+cd /home/${cur_user}/.local/share/applications/ ; sed -i '/\[Desktop Entry\]/a NoDisplay=true' ./nautilus.desktop 
 
 # set nautilus to run after boot for the main user
 echo "[Desktop Entry]
@@ -52,8 +52,8 @@ Comment=Enables desktop icons for Pantheon on the Litebook v1
 Exec=/etc/litebook-scripts/scripts/litebook-desktop-icons-start.sh
 Terminal=false
 Type=Application
-X-GNOME-Autostart-enabled=true" > /home/"${main_user}"/.config/autostart/litebook-desktop-icons.desktop
-chown "${main_user}":"${main_user}" /home/"${main_user}"/.config/autostart/litebook-desktop-icons.desktop
+X-GNOME-Autostart-enabled=true" > /home/"${cur_user}"/.config/autostart/litebook-desktop-icons.desktop
+chown "${cur_user}":"${cur_user}" /home/"${cur_user}"/.config/autostart/litebook-desktop-icons.desktop
 
 # notify the user of all pertinent info
 echo 'Hello!
@@ -93,10 +93,10 @@ make this very easy, if you want to use a dedicated menu editor.
 
 Enjoy!
 
-Litebook Support' > /home/"${main_user}"/Desktop/litebook-desktop-icons.info
-chown "${main_user}":"${main_user}" /home/"${main_user}"/Desktop/litebook-desktop-icons.info
+Litebook Support' > /home/"${cur_user}"/Desktop/litebook-desktop-icons.info
+chown "${cur_user}":"${cur_user}" /home/"${cur_user}"/Desktop/litebook-desktop-icons.info
 
 # nautilus initial start
-gksu -u "$(id -nu 1000)" -l /etc/litebook-scripts/scripts/litebook-desktop-icons-start.sh
+gksu -u "${cur_user}" -l /etc/litebook-scripts/scripts/litebook-desktop-icons-start.sh
 
 exit 0

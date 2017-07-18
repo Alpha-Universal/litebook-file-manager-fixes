@@ -11,8 +11,10 @@ set -o nounset      # exits if unset vars are present
 
 PATH=/usr/local/bin:/usr/bin:/bin:/sbin:/usr/sbin:/usr/local/sbin
 
+cur_user="$(who | grep ":0" | cut -f 1 -d ' ' | uniq)"
+
 # exits if this script has already set things up
-if [[ -f /home/"$(id -nu 1000)"/.config/autostart/litebook-desktop-icons.desktop ]] ; then
+if [[ -f /home/"${cur_user}"/.config/autostart/litebook-desktop-icons.desktop ]] ; then
 	exit 0
 else 
 	bash /etc/litebook-scripts/scripts/litebook-file-manager-setup.sh 
