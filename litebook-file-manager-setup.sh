@@ -33,7 +33,7 @@ if [[ ! -d /home/"${cur_user}"/.local/share/applications ]] ; then
 fi
 
 if [[ ! -d /home/"${cur_user}"/.config/autostart ]] ; then
-/home/"${cur_user}"/.config/autostart
+	sudo -u "${cur_user}" -l mkdir /home/"${cur_user}"/.config/autostart
 fi
 
 # set default desktop icons
