@@ -1,0 +1,15 @@
+litebook-file-manager-fixes (1.1-1) experimental; urgency=medium
+
+  * Made setup dynamic for any user, and apt and conf dirs are now properly 
+  * handled (Closes: #10000)
+
+ -- Richard Buchanan II <richard@alpha.store>  Wed, 19 Jul 2017 21:49:29 -0500
+
+litebook-file-manager-fixes (1.0-1) experimental; urgency=low
+
+  * Initial release (Closes: #12345)  
+  * Added litebook-desktop-icons.info, litebook-file-manager-fixes.service,
+  * litebook-file-manager-fixes.sh, litebook-file-manager-setup.sh.
+  * and litebook-desktop-start.sh
+
+ -- Richard Buchanan II <richard@alpha.store>  Tue, 18 Apr 2017 21:08:33 -0500

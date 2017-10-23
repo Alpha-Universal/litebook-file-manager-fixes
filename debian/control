@@ -1,0 +1,17 @@
+Source: litebook-file-manager-fixes
+Section: x11
+Priority: optional
+Maintainer: Richard Buchanan II <richard@alpha.store>
+Build-Depends: debhelper (>= 9), dh-systemd (>= 1.5)
+Standards-Version: 3.9.6
+Homepage: https://github.com/Alpha-Universal/litebook-file-manager-fixes
+
+Package: litebook-file-manager-fixes
+Architecture: all
+Depends: ${misc:Depends}
+Description: Scripts to enable desktop icons for Pantheon 
+ This package includes scripts and a systemd unit file
+ to enable desktop icons for the Pantheon file manager.
+ This is accomplished by utilizing Nautilus for the icons
+ and setting Pantheon to monitor Nautilus as a background
+ process.

@@ -1,0 +1,13 @@
+[Unit]
+Description=Activate desktop icons at startup for Litebook v1
+After=graphical.target
+
+[Service]
+Type=simple
+ExecStart=/etc/alpha-scripts/litebook/scripts/desktop-icons/litebook-file-manager-fixes.sh
+StandardOutput=null
+StandardError=journal
+
+[Install]
+WantedBy=graphical.target
+Alias=litebook-file-manager-fixes.service

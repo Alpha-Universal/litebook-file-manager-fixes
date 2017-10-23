@@ -1,0 +1,104 @@
+Made setup dynamic for any user, fixed apt handling for subsequent setups, properly handled missing conf dirs, and cleaned syntax
+--- a/litebook-file-manager-fixes.sh
++++ b/litebook-file-manager-fixes.sh
+@@ -11,8 +11,10 @@
+ 
+ PATH=/usr/local/bin:/usr/bin:/bin:/sbin:/usr/sbin:/usr/local/sbin
+ 
++cur_user="$(who | grep ":0" | cut -f 1 -d ' ' | uniq)"
++
+ # exits if this script has already set things up
+-if [[ -f /home/"$(id -nu 1000)"/.config/autostart/litebook-desktop-icons.desktop ]] ; then
++if [[ -f /home/"${cur_user}"/.config/autostart/litebook-desktop-icons.desktop ]] ; then
+ 	exit 0
+ else 
+ 	bash /etc/litebook-scripts/scripts/litebook-file-manager-setup.sh 
+--- a/litebook-file-manager-setup.sh
++++ b/litebook-file-manager-setup.sh
+@@ -11,16 +11,30 @@
+ 
+ PATH=/usr/local/bin:/usr/bin:/bin:/sbin:/usr/sbin:/usr/local/sbin
+ 
++cur_user="$(who | grep ":0" | cut -f 1 -d ' ' | uniq)"
++
+ # needed for this external script to call the current display
+ DISPLAY=:0
+ export DISPLAY
+-XAUTHORITY=/home/$(id -nu 1000)/.Xauthority
++XAUTHORITY=/home/"${cur_user}"/.Xauthority
+ export XAUTHORITY
+ 
+-main_user="$(id -nu 1000)"
+-
+ # install needed packages
+-apt update && apt install -y --no-install-recommends nautilus dconf-tools pantheon-files
++if [[ ! -x dconf-tools ]] ; then apt update && apt install -y --no-install-recommends nautilus dconf-tools pantheon-files
++fi
++
++# create all needed directories
++if [[ ! -d /home/"${cur_user}"/Desktop ]] ; then
++	sudo -u "${cur_user}" -l mkdir /home/"${cur_user}"/Desktop
++fi
++
++if [[ ! -d /home/"${cur_user}"/.local/share/applications ]] ; then
++	sudo -u "${cur_user}" -l mkdir /home/"${cur_user}"/.local/share/applications
++fi
++
++if [[ ! -d /home/"${cur_user}"/.config/autostart ]] ; then
++	sudo -u "${cur_user}" -l mkdir /home/"${cur_user}"/.config/autostart
++fi
+ 
+ # set default desktop icons
+ dbus-launch --sh-syntax gsettings set org.gnome.nautilus.desktop home-icon-visible true 
+@@ -30,19 +44,18 @@
+ # set pantheon to monitor nautilus
+ dbus-launch --sh-syntax gsettings set org.pantheon.desktop.cerbere monitored-processes "['wingpanel', 'plank', 'slingshot-launcher --silent', 'nautilus -n']" 
+ 
+-# create desktop directory in ~ and set it as such with xdg
+-sudo -u "${main_user}" -l mkdir /home/"${main_user}"/Desktop
+-su - "${main_user}" -c "echo "XDG_DESKTOP_DIR=\"/home/"${main_user}"/Desktop\"" >> \
+-/home/"${main_user}"/.config/user-dirs.dirs"
++# define the desktop directory in with xdg
++su - "${cur_user}" -c "echo "XDG_DESKTOP_DIR=\"/home/"${cur_user}"/Desktop\"" >> \
++/home/"${cur_user}"/.config/user-dirs.dirs"
+ 
+ # ensure that pantheon remains the default file manager, and use the yes
+ # binary to handle the interactive prompt
+-yes | sudo -u "${main_user}" -l xdg-mime default pantheon.desktop inode/directory application/x-gnome-saved-search
++yes | sudo -u "${cur_user}" -l xdg-mime default pantheon.desktop inode/directory application/x-gnome-saved-search
+ 
+ # hide nautilus from the start menu
+-cp /usr/share/applications/nautilus.desktop /home/"${main_user}"/.local/share/applications
+-chown "${main_user}":"${main_user}" /home/"${main_user}"/.local/share/applications/nautilus.desktop
+-cd /home/$(id -nu 1000)/.local/share/applications/ ; sed -i '/\[Desktop Entry\]/a NoDisplay=true' ./nautilus.desktop 
++cp /usr/share/applications/nautilus.desktop /home/"${cur_user}"/.local/share/applications
++chown "${cur_user}":"${cur_user}" /home/"${cur_user}"/.local/share/applications/nautilus.desktop
++cd /home/${cur_user}/.local/share/applications/ ; sed -i '/\[Desktop Entry\]/a NoDisplay=true' ./nautilus.desktop
+ 
+ # set nautilus to run after boot for the main user
+ echo "[Desktop Entry]
+@@ -52,8 +65,8 @@
+ Exec=/etc/litebook-scripts/scripts/litebook-desktop-icons-start.sh
+ Terminal=false
+ Type=Application
+-X-GNOME-Autostart-enabled=true" > /home/"${main_user}"/.config/autostart/litebook-desktop-icons.desktop
+-chown "${main_user}":"${main_user}" /home/"${main_user}"/.config/autostart/litebook-desktop-icons.desktop
++X-GNOME-Autostart-enabled=true" > /home/"${cur_user}"/.config/autostart/litebook-desktop-icons.desktop
++chown "${cur_user}":"${cur_user}" /home/"${cur_user}"/.config/autostart/litebook-desktop-icons.desktop
+ 
+ # notify the user of all pertinent info
+ echo 'Hello!
+@@ -93,10 +106,10 @@
+ 
+ Enjoy!
+ 
+-Litebook Support' > /home/"${main_user}"/Desktop/litebook-desktop-icons.info
+-chown "${main_user}":"${main_user}" /home/"${main_user}"/Desktop/litebook-desktop-icons.info
++Litebook Support' > /home/"${cur_user}"/Desktop/litebook-desktop-icons.info
++chown "${cur_user}":"${cur_user}" /home/"${cur_user}"/Desktop/litebook-desktop-icons.info
+ 
+ # nautilus initial start
+-gksu -u "$(id -nu 1000)" -l /etc/litebook-scripts/scripts/litebook-desktop-icons-start.sh
++gksu -u "${cur_user}" -l /etc/litebook-scripts/scripts/litebook-desktop-icons-start.sh
+ 
+ exit 0

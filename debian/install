@@ -1,0 +1,4 @@
+litebook-file-manager-fixes.sh etc/alpha-scripts/litebook/scripts/desktop-icons
+litebook-file-manager-setup.sh etc/alpha-scripts/litebook/scripts/desktop-icons
+litebook-desktop-icons-start.sh etc/alpha-scripts/litebook/scripts/desktop-icons
+litebook-desktop-icons.info etc/alpha-scripts/litebook/info
